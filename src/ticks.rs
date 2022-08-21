@@ -30,8 +30,6 @@ impl Buffer {
                         state.push(value);
                     }
                     Message::CommandTick => {
-                        println!("Tick");
-
                         Buffer::flush_buffer(&mut state);
                     }
                     Message::CommandStop => {
@@ -57,8 +55,12 @@ impl Buffer {
     }
 
     fn flush_buffer(state: &mut Vec<String>) {
-        println!("Flushing {} lines from buffer...", state.len());
-        state.clear();
+        if state.len() > 0 {
+            println!("Flushing {} lines from buffer...", state.len());
+            state.clear();
+        } else {
+            println!("There is no lines to flush.");
+        }
     }
 
     pub fn add_line(&self, line: String) {
