@@ -12,15 +12,14 @@ enum Message {
 
 #[derive(Debug)]
 pub struct Counter {
-    // input channel used to update counter
+    // input channel used to pass commands to a counter
     sender: Sender<Message>,
 
-    // output channel used to read counter value
+    // output channel used to get results from counter
     receiver: Receiver<Message>,
 }
 
 impl Counter {
-    // start counter thread.
     pub fn start() -> (Counter, JoinHandle<()>) {
         let (input_sender, input_receiver) = channel::<Message>();
         let (output_sender, output_receiver) = channel::<Message>();

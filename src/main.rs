@@ -20,7 +20,6 @@ fn main() {
             sender.send(1).unwrap();
 
             sleep(Duration::from_millis(100));
-            // join_handle.join().unwrap();
         }
         "counter" => {
             let (counter, _join_handle) = counter::Counter::start();
@@ -33,14 +32,12 @@ fn main() {
             println!("Current counter value is {}", &current_value);
 
             sleep(Duration::from_millis(100));
-            // join_handle.join().unwrap();
         }
         "stop_me" => {
             let (counter, join_handle) = stop_me::Counter::start();
 
             counter.increment(1);
-            counter.increment(5);
-            counter.increment(1);
+            counter.increment(2);
 
             let current_value = counter.value();
             println!("Current counter value is {}", &current_value);
