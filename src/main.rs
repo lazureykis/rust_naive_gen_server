@@ -2,6 +2,7 @@ use std::env::args;
 use std::thread::sleep;
 use std::time::Duration;
 
+mod buffer;
 mod counter;
 mod simple_counter;
 mod stop_me;
@@ -43,6 +44,18 @@ fn main() {
             println!("Current counter value is {}", &current_value);
 
             counter.stop();
+
+            join_handle.join().unwrap();
+        }
+        "buffer" => {
+            let (buffer, join_handle) = buffer::Buffer::start();
+
+            for i in 1..26 {
+                let line = format!("Line {}", i);
+                buffer.add_line(line);
+            }
+
+            buffer.stop();
 
             join_handle.join().unwrap();
         }
