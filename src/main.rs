@@ -6,6 +6,7 @@ mod buffer;
 mod counter;
 mod simple_counter;
 mod stop_me;
+mod ticks;
 
 fn main() {
     let command = args()
@@ -53,6 +54,19 @@ fn main() {
             for i in 1..26 {
                 let line = format!("Line {}", i);
                 buffer.add_line(line);
+            }
+
+            buffer.stop();
+
+            join_handle.join().unwrap();
+        }
+        "ticks" => {
+            let (buffer, join_handle) = ticks::Buffer::start();
+
+            for i in 1..26 {
+                let line = format!("Line {}", i);
+                buffer.add_line(line);
+                sleep(Duration::from_millis(300));
             }
 
             buffer.stop();
