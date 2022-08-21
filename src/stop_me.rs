@@ -13,7 +13,7 @@ enum Message {
 
 #[derive(Debug)]
 pub struct Counter {
-    // input channel used to update counter
+    // input channel used to give commands to counter
     sender: Sender<Message>,
 
     // output channel used to read counter value
